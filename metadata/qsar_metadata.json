@@ -1,0 +1,24 @@
+{
+  "model_name": "XGBoost_QSAR",
+  "model_type": "xgboost",
+  "target_properties": [
+    "bioactivity_score",
+    "drug_likeness",
+    "toxicity_prediction"
+  ],
+  "feature_info": {
+    "total_features": 2057,
+    "rdkit_descriptors": 217,
+    "morgan_fingerprints": 1024,
+    "additional_features": 816
+  },
+  "molecular_descriptors": "all_rdkit_descriptors",
+  "fingerprint_config": {
+    "radius": 2,
+    "n_bits": 1024,
+    "type": "morgan"
+  },
+  "prediction_type": "regression",
+  "description": "XGBoost model for predicting molecular properties using comprehensive molecular descriptors and fingerprints",
+  "version": "1.0"
+}

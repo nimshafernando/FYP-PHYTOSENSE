@@ -84,15 +84,23 @@
   ],
   "model_info": {
     "ResNet-50": {
-      "accuracy": 0.8789855072463768,
+      "accuracy": 0.7673267326732673,
       "model_path": "/content/drive/MyDrive/medicinal/resnet50_ensemble.pth"
+    },
+    "MobileNetV2": {
+      "accuracy": 0.690947666195191,
+      "model_path": "/content/drive/MyDrive/medicinal/mobilenetv2_ensemble.pth"
+    },
+    "EfficientNet-B0": {
+      "accuracy": 0.82,
+      "model_path": "/content/drive/MyDrive/medicinal/efficientnet_b0_ensemble.pth"
     }
   },
-  "training_date": "2025-08-26 20:09:27",
+  "training_date": "2025-09-13 13:21:01",
   "config": {
     "batch_size": 32,
-    "num_epochs": 40,
+    "num_epochs": 50,
     "learning_rate": 0.001,
-    "early_stopping_patience": 10
+    "early_stopping_patience": 5
   }
 }
