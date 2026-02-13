@@ -64,15 +64,6 @@
 
 ## 🚀 Demo
 
-### 🖼️ Screenshots
-
-<div align="center">
-
-| Plant Upload Interface | Molecular Visualization | QSAR Results |
-|:----------------------:|:----------------------:|:------------:|
-| ![Upload](docs/images/upload-demo.png) | ![Molecular](docs/images/molecular-demo.png) | ![Results](docs/images/qsar-demo.png) |
-
-</div>
 
 ### 🎥 Try It Live
 
