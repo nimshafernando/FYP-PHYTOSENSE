@@ -1,0 +1,55 @@
+{
+  "title": "PhytoSense Application - Comprehensive Testing Report",
+  "timestamp": "2026-02-12T10:44:46.894833",
+  "duration_seconds": 11.122413396835327,
+  "summary": {
+    "total_tests": 15,
+    "total_passed": 11,
+    "overall_success_rate": "73.3%",
+    "compliance_status": "COMPLETE"
+  },
+  "category_results": {
+    "functional": {
+      "tests_run": 6,
+      "failures": 2,
+      "errors": 0,
+      "success_count": 4,
+      "success_rate": 66.66666666666666
+    },
+    "module_integration": {
+      "module_tests": 5,
+      "integration_tests": 4,
+      "total_tests": 9,
+      "failures": 2,
+      "errors": 0,
+      "success_count": 7,
+      "success_rate": 77.77777777777779
+    },
+    "non_functional": {
+      "error": "No module named 'psutil'"
+    },
+    "limitations": {
+      "status": "generated",
+      "files": [
+        "testing_limitations_report.json",
+        "testing_limitations_summary.md"
+      ]
+    }
+  },
+  "requirement_compliance": {
+    "functional_testing": true,
+    "module_integration_testing": true,
+    "accuracy_testing": false,
+    "performance_testing": false,
+    "scalability_testing": false,
+    "security_testing": false,
+    "limitations_documented": true
+  },
+  "evidence_files": [
+    "functional_test_report.json",
+    "module_integration_test_report.json",
+    "non_functional_test_report.json",
+    "testing_limitations_report.json",
+    "testing_limitations_summary.md"
+  ]
+}

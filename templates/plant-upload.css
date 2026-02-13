@@ -1,0 +1,176 @@
+/* ========================================
+   PLANT UPLOAD SECTION
+   ======================================== */
+.upload-section {
+    padding: 40px;
+    text-align: center;
+    background: #f8f9fa;
+    min-height: 100vh;
+    padding-top: 200px;
+}
+
+.upload-box {
+    border: 3px dashed #3498db;
+    border-radius: 15px;
+    padding: 40px;
+    margin: 20px 0;
+    background: white;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-box:hover {
+    border-color: #2980b9;
+    background: #ecf0f1;
+}
+
+.upload-box.dragover {
+    border-color: #27ae60;
+    background: #d5f4e6;
+}
+
+#fileInput {
+    display: none;
+}
+
+#imagePreview {
+    position: relative;
+}
+
+.image-loading-spinner {
+    display: none;
+    text-align: center;
+    margin: 20px 0;
+    padding: 20px;
+}
+
+.image-loading-spinner.active {
+    display: block;
+}
+
+.spinner-circle {
+    border: 4px solid #e8f5e8;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px auto;
+}
+
+.spinner-text {
+    color: #666;
+    font-size: 16px;
+}
+
+.loading {
+    display: none;
+    text-align: center;
+    color: #666;
+    margin: 20px 0;
+}
+
+.loading.active {
+    display: block;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px auto;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3498db, #2980b9);
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 10px;
+}
+
+.predict-btn {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: none;
+    margin: 20px auto;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.predict-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+.predict-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ========================================
+   NON-MEDICINAL PLANT STYLING
+   ======================================== */
+.non-medicinal-message {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin: 20px 0;
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+}
+
+.non-medicinal-content h3 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.non-medicinal-content p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.tips {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.tips p {
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.tips ul {
+    margin-left: 20px;
+    line-height: 1.8;
+}
+
+.tips li {
+    margin-bottom: 8px;
+}

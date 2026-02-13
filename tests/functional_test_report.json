@@ -1,0 +1,42 @@
+{
+  "test_type": "Functional Testing",
+  "timestamp": "2026-02-12 10:44:37",
+  "results": [
+    {
+      "test": "test_01_homepage_accessibility",
+      "result": "\u2705 PASS",
+      "duration": "0.01s"
+    },
+    {
+      "test": "test_02_image_upload_functionality",
+      "result": "\u2705 PASS",
+      "duration": "0.75s"
+    },
+    {
+      "test": "test_03_phytochemical_data_retrieval",
+      "result": "\u2705 PASS",
+      "duration": "0.15s"
+    },
+    {
+      "test": "test_04_qsar_prediction_workflow",
+      "result": "\u2705 PASS",
+      "duration": "0.16s"
+    },
+    {
+      "test": "test_05_molecular_visualization",
+      "result": "\u2705 PASS",
+      "duration": "0.17s"
+    },
+    {
+      "test": "test_06_gpt_integration",
+      "result": "\u2705 PASS",
+      "duration": "0.01s"
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "total": 6,
+    "duration": 1.2513606548309326,
+    "success_rate": "100.0%"
+  }
+}

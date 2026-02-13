@@ -1,0 +1,18 @@
+Endpoint,Response_Time_ms,Status,Category,Performance_Rating
+Homepage,367,Pass,Good,4
+QSAR_Prediction,4200,Pass,Slow,2
+Molecular_Descriptors,267,Pass,Fast,5
+3D_Visualization,729,Pass,Good,4
+Load_Test,215,Pass,Fast,5
+Debug_Endpoint,97,Pass,Fast,5
+
+# Performance Summary Statistics
+Metric,Value,Unit
+Average_Response_Time,986,ms
+Fastest_Response,97,ms
+Slowest_Response,4200,ms
+Standard_Deviation,1470,ms
+Success_Rate,100,%
+Total_Requests,6,count
+Total_Duration,17.6,seconds
+Data_Transferred,223.71,kB

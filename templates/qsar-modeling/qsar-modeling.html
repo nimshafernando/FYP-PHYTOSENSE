@@ -1,0 +1,35 @@
+<!-- QSAR Modeling Section -->
+<div class="qsar-section" id="qsarSection" style="display: none;">
+    <div class="qsar-header">
+        🔬 QSAR-based Molecular Property Prediction
+    </div>
+    
+    <div class="qsar-description">
+        <p style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px; backdrop-filter: blur(10px);">
+            Select phytochemicals below to predict their molecular properties using AI-powered QSAR models
+        </p>
+    </div>
+    
+    <!-- Compound Selection -->
+    <div class="compound-selector" id="compoundSelector">
+        <h4 style="margin-bottom: 15px; color: white;">📋 Select Compounds for Analysis</h4>
+        <div class="compound-list" id="compoundList">
+            <p style="text-align: center; color: rgba(255,255,255,0.7); padding: 20px;">No compounds available for selection.</p>
+        </div>
+        <button class="qsar-proceed-btn" id="qsarProceedBtn" disabled>🚀 Generate QSAR Predictions</button>
+    </div>
+    
+    <!-- Loading State -->
+    <div class="qsar-loading" id="qsarLoading" style="display: none;">
+        <div class="spinner"></div>
+        <p>Generating QSAR predictions...</p>
+    </div>
+    
+    <!-- Results Container -->
+    <div class="qsar-results" id="qsarResults" style="display: none;">
+        <h4 style="color: #2c3e50; margin-bottom: 20px; text-align: center;">
+            📊 QSAR Prediction Results
+        </h4>
+        <div class="qsar-results-content" id="qsarResultsContent"></div>
+    </div>
+</div>

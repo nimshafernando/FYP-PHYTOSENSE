@@ -1,0 +1,43 @@
+FUNCTIONAL TEST CASES - MEDICINAL LEAF CLASSIFIER APPLICATION
+
+Test Case ID | Test Case Name | Test Description | Preconditions | Test Steps | Expected Result | Test Data
+-------------|----------------|------------------|---------------|------------|-----------------|----------
+TC001 | Valid Image Upload and Plant Identification | Test successful upload of medicinal leaf image and plant identification | Flask app running, models loaded | 1. Navigate to application homepage 2. Click upload button 3. Select valid leaf image (JPG/PNG) 4. Click submit | Image uploaded successfully, plant identified with confidence percentage, phytochemicals displayed | Valid leaf image of Aloe vera, Amla, or other supported plant
+TC002 | Invalid File Format Upload | Test application handles invalid file formats gracefully | Flask app running | 1. Navigate to homepage 2. Click upload button 3. Select non-image file (TXT/PDF) 4. Click submit | Error message displayed: "Invalid file format. Please upload image files only" | Text file or PDF document
+TC003 | QSAR Property Prediction | Test QSAR model predictions for phytochemical compounds | Flask app running, QSAR model loaded | 1. Upload valid leaf image 2. Wait for plant identification 3. Click on any phytochemical compound 4. View QSAR predictions | Bioactivity score, drug likeness, and toxicity predictions displayed with numerical values | Any supported medicinal leaf image
+TC004 | IC50 Calibration for Known Compounds | Test IC50 calibration system with reference compounds | Flask app running, reference data loaded | 1. Upload leaf image containing Quercetin 2. Identify plant successfully 3. View Quercetin compound details 4. Check IC50 value | IC50 value should be approximately 128 μM (close to literature value) | Leaf image from plant containing Quercetin (e.g., Astma weed)
+TC005 | Molecular Structure Visualization | Test 2D and 3D molecular structure generation | Flask app running, RDKit available | 1. Upload valid leaf image 2. Select any phytochemical compound 3. View molecular structure section 4. Check 2D image and 3D model | 2D molecular image displayed, 3D rotatable model available | Any medicinal leaf with valid SMILES data
+TC006 | Drug Development Assessment Generation | Test AI-powered drug development assessment | Flask app running, OpenAI API configured | 1. Upload leaf image 2. Select phytochemical compound 3. Wait for QSAR analysis 4. View drug development assessment | Detailed assessment text generated covering bioactivity, drug likeness, safety profile | Valid medicinal leaf image
+TC007 | AutoDock Vina Molecular Docking | Test molecular docking simulation functionality | Flask app running, Vina integration available | 1. Upload leaf image 2. Select compound 3. Click molecular docking button 4. Wait for docking results | Binding affinity values, poses, and docking scores displayed | Leaf image with compounds having valid SMILES
+TC008 | Large File Upload Handling | Test application behavior with oversized image files | Flask app running | 1. Navigate to homepage 2. Select image file larger than 16MB 3. Attempt upload | Error message: "File too large. Maximum file size is 16MB" with graceful handling | Image file larger than 16MB
+TC009 | Multiple Phytochemical Analysis | Test processing of plants with multiple phytochemicals | Flask app running, all models loaded | 1. Upload image of plant with multiple compounds (e.g., Amruthaballi) 2. Wait for identification 3. View all phytochemicals listed 4. Click through each compound | Multiple compound cards displayed, each with individual QSAR predictions and molecular data | Amruthaballi or similar plant with 3+ phytochemicals
+TC010 | Application Error Recovery | Test application stability after processing errors | Flask app running | 1. Upload corrupted image file 2. Attempt to process 3. Check application remains responsive 4. Upload valid image afterward | Error handled gracefully, application remains functional, subsequent uploads work normally | Corrupted image file, followed by valid test image
+
+ADDITIONAL TEST SCENARIOS:
+
+Priority: HIGH
+- TC001, TC002, TC003, TC006 (Core functionality)
+
+Priority: MEDIUM  
+- TC004, TC005, TC007, TC009 (Advanced features)
+
+Priority: LOW
+- TC008, TC010 (Error handling and edge cases)
+
+ENVIRONMENT REQUIREMENTS:
+- Windows OS with PowerShell
+- Python virtual environment activated
+- Flask application running on localhost
+- All model files loaded (XGBoost, CNN models)
+- OpenAI API key configured (for TC006)
+- Internet connection (for external API calls)
+
+PASS/FAIL CRITERIA:
+- PASS: Expected result achieved without errors
+- FAIL: Any error messages, incorrect predictions, or application crashes
+- PARTIAL: Functionality works but with minor issues (document in notes)
+
+TEST DATA LOCATION:
+- Valid test images should be placed in: uploads/ directory
+- Supported formats: PNG, JPG, JPEG, GIF, BMP, AVIF, WEBP
+- Recommended test plants: Aloe vera, Amla, Astma_weed, Amruthaballi

@@ -1,0 +1,59 @@
+{
+  "test_type": "Module and Integration Testing",
+  "timestamp": "2026-02-12 10:44:46",
+  "module_tests": 5,
+  "integration_tests": 4,
+  "results": [
+    {
+      "test": "test_01_rdkit_module",
+      "result": "\u2705 PASS",
+      "duration": "0.28s"
+    },
+    {
+      "test": "test_02_phytochemical_database_module",
+      "result": "\u2705 PASS",
+      "duration": "0.00s"
+    },
+    {
+      "test": "test_03_qsar_model_module",
+      "result": "\u2705 PASS",
+      "duration": "0.01s"
+    },
+    {
+      "test": "test_04_image_processing_module",
+      "result": "\u2705 PASS",
+      "duration": "8.62s"
+    },
+    {
+      "test": "test_05_ic50_calibration_module",
+      "result": "\u2705 PASS",
+      "duration": "0.01s"
+    },
+    {
+      "test": "test_01_smiles_to_qsar_integration",
+      "result": "\u2705 PASS",
+      "duration": "0.01s"
+    },
+    {
+      "test": "test_02_phytochemical_to_visualization_integration",
+      "result": "\u2705 PASS",
+      "duration": "0.08s"
+    },
+    {
+      "test": "test_03_qsar_to_gpt_integration",
+      "result": "\u2705 PASS",
+      "duration": "0.00s"
+    },
+    {
+      "test": "test_04_end_to_end_workflow",
+      "result": "\u2705 PASS",
+      "duration": "0.00s"
+    }
+  ],
+  "summary": {
+    "passed": 9,
+    "total": 9,
+    "duration": 0.1029350757598877,
+    "success_rate": "100.0%"
+  }
+}

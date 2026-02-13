@@ -1,0 +1,11 @@
+torch
+torchvision
+flask
+pillow
+numpy
+pandas
+scikit-learn
+xgboost
+rdkit
+google-generativeai
+requests

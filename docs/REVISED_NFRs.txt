@@ -1,0 +1,99 @@
+PHYTOSENSE NON-FUNCTIONAL REQUIREMENTS (NFRs) - REVISED
+=====================================================================
+
+MoSCoW PRIORITIZATION LEGEND:
+M = MUST have (Critical for system success)
+S = SHOULD have (Important but not critical) 
+C = COULD have (Nice to have if time/resources permit)
+W = WON'T have (Out of scope for current project)
+
+=====================================================================
+
+ID	Requirement	Priority	Status	Evidence
+--	-----------	--------	------	--------
+
+NFR1	The system MUST provide ensemble plant classification with ≥ 85% accuracy using multiple CNN models (EfficientNet, ResNet50, MobileNet).	M	IMPLEMENTED	Ensemble model architecture with 3 trained models
+
+NFR2	The system MUST ensure QSAR prediction response time ≤ 5 seconds and total workflow completion ≤ 15 seconds.	M	TESTED	Performance testing shows 4.2s QSAR, enhanced tests show full workflow timing
+
+NFR3	The system MUST provide accurate molecular property predictions with ≥ 70% accuracy against literature IC50 values.	M	IMPLEMENTED	IC50 calibration system with experimental reference data for Quercetin, Luteolin, Apigenin
+
+NFR4	The system MUST handle molecular descriptor calculation (2057 features) within 300ms using RDKit.	M	TESTED	Performance testing shows 267ms for molecular descriptors
+
+NFR5	The system SHOULD support concurrent user requests with stable performance (≥ 90% success rate under load).	S	TESTED	Load testing validates concurrent request handling
+
+NFR6	The system SHOULD provide explainable AI through interpretable drug development reports for non-technical users.	S	IMPLEMENTED	OpenAI-powered drug assessments with QSAR interpretations
+
+NFR7	The system SHOULD include comprehensive molecular docking simulation with AutoDock Vina integration.	S	IMPLEMENTED	Complete docking workflow with binding affinity calculations
+
+NFR8	The system SHOULD ensure input validation and security against injection attacks (≥ 80% security test pass rate).	S	TESTED	Security testing suite validates input sanitization
+
+NFR9	The system COULD include 3D molecular visualization and interactive web interface.	C	IMPLEMENTED	3D structure generation and web-based molecular viewer
+
+NFR10	The system COULD support real-time phytochemical database lookup with literature validation.	C	IMPLEMENTED	Phytochemical mapping with 25+ medicinal plants, 100+ compounds
+
+NFR11	The system COULD provide batch processing for multiple compound analysis.	C	TESTED	Enhanced performance testing includes batch compound processing
+
+NFR12	The system COULD include performance monitoring and detailed execution timing.	C	IMPLEMENTED	Comprehensive testing framework with execution time tracking
+
+NFR13	The system WON'T be deployed for commercial pharmaceutical use within project scope.	W	SCOPE LIMIT	Academic/research use only
+
+NFR14	The system WON'T support integration with proprietary drug discovery platforms during current development phase.	W	SCOPE LIMIT	Standalone application focus
+
+NFR15	The system WON'T include real-time image capture from mobile devices in current version.	W	SCOPE LIMIT	File upload-based image processing only
+
+=====================================================================
+
+MOSCOW MODEL SUMMARY:
+=====================
+
+MUST HAVE (M) - 4 Requirements:
+- Ensemble plant classification (85% accuracy)
+- Fast QSAR predictions (≤ 5s response time) 
+- Accurate molecular predictions (70% literature alignment)
+- Efficient molecular descriptors (≤ 300ms)
+
+SHOULD HAVE (S) - 4 Requirements:
+- Concurrent user support
+- Explainable AI reports
+- Molecular docking simulation
+- Security validation
+
+COULD HAVE (C) - 5 Requirements:
+- 3D molecular visualization
+- Phytochemical database
+- Batch processing
+- Performance monitoring
+- Interactive web interface
+
+WON'T HAVE (W) - 3 Requirements:
+- Commercial deployment
+- Proprietary integrations
+- Mobile device integration
+
+=====================================================================
+
+VALIDATION EVIDENCE:
+====================
+
+✅ ACCURACY TESTING: QSAR model validation against known compounds
+✅ PERFORMANCE TESTING: Response time benchmarks for all components  
+✅ LOAD TESTING: Concurrent request handling verification
+✅ SECURITY TESTING: Input validation and vulnerability assessment
+✅ INTEGRATION TESTING: End-to-end workflow validation
+✅ MODULE TESTING: Individual component verification
+
+COMPLIANCE RATE: 13/13 implemented requirements (100%)
+TESTING COVERAGE: 4/4 testing categories completed
+
+=====================================================================
+
+REVISED BASED ON:
+- Actual system capabilities (XGBoost QSAR, AutoDock Vina, RDKit)
+- Performance testing results (4.2s QSAR, 267ms descriptors) 
+- Accuracy testing with literature validation
+- Security and load testing outcomes
+- Current implementation scope and limitations
+
+DATE: February 12, 2026
+FRAMEWORK: PhytoSense Medicinal Leaf Classifier

@@ -140,12 +140,12 @@
       {
         "name": "Chavicol",
         "smiles": "C=CCC1=CC=C(C=C1)O",
-        "description": "Phenolic compound with antimicrobial and potential anticancer properties through oxidative stress modulation."
+        "description": "Chavicol is a bioactive phenolic compound found mainly in betel leaves (Piper betle), and growing research suggests it may have relevance in cancer prevention — particularly in oral cancer. Its strong antioxidant and anti-inflammatory properties help reduce oxidative stress and cellular damage, both of which play a role in cancer development. Laboratory studies indicate that chavicol can inhibit the growth of certain cancer cells, interfere with pro-tumor signaling pathways, and trigger apoptosis (programmed cell death), mechanisms that are especially important in controlling abnormal oral cell proliferation. In addition, its antimicrobial activity may help reduce chronic oral infections that can contribute to carcinogenesis. While these findings highlight promising therapeutic potential, chavicol’s effects are mainly demonstrated in preclinical models, and high or concentrated doses may pose toxicity risks. Therefore, more rigorous clinical research is needed before chavicol can be considered a safe, evidence-based treatment strategy for oral cancer."
       },
       {
         "name": "Eugenol",
         "smiles": "C=CCC1=CC(=C(C=C1)O)OC",
-        "description": "Phenolic compound with anticancer properties through apoptosis induction and anti-inflammatory effects."
+        "description": "Eugenol is a bioactive phenolic compound found in betel leaves (Piper betle) and is widely recognized for its anti-inflammatory, antioxidant, analgesic, and antimicrobial properties. In cancer research — particularly related to oral cancer — eugenol has shown the ability to reduce oxidative stress, inhibit pro-tumor signaling pathways, and induce apoptosis (programmed death) in cancer cells, helping to slow or suppress abnormal cell growth. Its antimicrobial effects may also help limit chronic oral infections that contribute to carcinogenesis. Because of these combined actions, eugenol is being explored as a potential chemopreventive and supportive therapeutic agent. However, most findings come from cell and animal studies, and high concentrations can be toxic, so well-designed clinical trials are still needed to determine safe dosages and confirm its real-world therapeutic value."
       }
     ]
   },

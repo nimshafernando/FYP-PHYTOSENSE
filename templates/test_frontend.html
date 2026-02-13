@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Frontend Dynamic Values Test</title>
+</head>
+<body>
+    <h2>Testing Frontend Dynamic Value Calculations</h2>
+    <div id="results"></div>
+
+    <script>
+        // Copy the functions from the main template
+        function calculateOralBioavailability(bioactivityScore, compound, qsarData) {
+            let descriptors = qsarData?.descriptors || {};
+            
+            // Base calculation on molecular properties
+            const tpsa = descriptors.TPSA || getDefaultTPSA(compound.name);
+            const mw = descriptors.MolWt || getDefaultMolWt(compound.name);
+            const logP = descriptors.LogP || getDefaultLogP(compound.name);
+            
+            // Calculate bioavailability based on TPSA, MW, and LogP
+            let bioavailability = 100;
+            
+            if (tpsa > 140) bioavailability -= 30;
+            else if (tpsa > 90) bioavailability -= 15;
+            
+            if (mw > 500) bioavailability -= 25;
+            else if (mw > 400) bioavailability -= 10;
+            
+            if (logP > 5) bioavailability -= 20;
+            else if (logP < 0) bioavailability -= 15;
+            
+            // Natural compounds bonus (broader categories)
+            if (compound.name.includes('chavicol') || compound.name.includes('eugenol') ||
+                compound.name.toLowerCase().includes('acid') || compound.name.toLowerCase().includes('phenol')) {
+                bioavailability += 5;
+            }
+            
+            return Math.min(95, Math.max(15, bioavailability)).toFixed(0);
+        }
+
+        function calculateDrugLikenessScore(bioactivityScore, compound, qsarData) {
+            let descriptors = qsarData?.descriptors || {};
+            
+            const mw = descriptors.MolWt || getDefaultMolWt(compound.name);
+            const logP = descriptors.LogP || getDefaultLogP(compound.name);
+            const rotBonds = descriptors.NumRotatableBonds || getDefaultRotBonds(compound.name);
+            const aromatic = descriptors.NumAromaticRings || getDefaultAromatic(compound.name);
+            
+            let score = 2.5; // Base score
+            
+            // Molecular weight contribution
+            if (mw >= 100 && mw <= 400) score += 1.0;
+            else if (mw <= 500) score += 0.5;
+            else score -= 0.5;
+            
+            // LogP contribution
+            if (logP >= 0 && logP <= 3) score += 1.0;
+            else if (logP <= 5) score += 0.5;
+            else score -= 0.5;
+            
+            // Rotatable bonds
+            if (rotBonds <= 5) score += 0.5;
+            else if (rotBonds <= 10) score += 0.2;
+            
+            // Aromatic rings (good for drug-like properties)
+            if (aromatic >= 1 && aromatic <= 3) score += 0.5;
+            
+            // Natural compound bonus (broader categories)
+            if (compound.name.includes('chavicol') || compound.name.includes('eugenol') ||
+                compound.name.toLowerCase().includes('acid') || compound.name.toLowerCase().includes('phenol')) {
+                score += 0.3;
+            }
+            
+            return Math.min(5.0, Math.max(0.5, score)).toFixed(2);
+        }
+
+        function getToxicityRisk(bioactivityScore, compound, qsarData) {
+            let descriptors = qsarData?.descriptors || {};
+            const mw = descriptors.MolWt || getDefaultMolWt(compound.name);
+            const logP = descriptors.LogP || getDefaultLogP(compound.name);
+            
+            // Natural compounds tend to have lower toxicity
+            let riskScore = 0;
+            
+            if (mw > 600) riskScore += 2;
+            else if (mw > 400) riskScore += 1;
+            
+            if (logP > 6) riskScore += 2;
+            else if (logP > 4) riskScore += 1;
+            
+            // Natural phenolic compounds are generally safer
+            if (compound.name.includes('chavicol') || compound.name.includes('eugenol')) {
+                riskScore -= 1;
+            }
+            
+            if (riskScore <= 0) return 'Low';
+            if (riskScore <= 2) return 'Moderate';
+            return 'High';
+        }
+
+        function getMutagenicity(compound) {
+            // Calculate mutagenicity based on molecular properties rather than compound names
+            const compoundName = compound.name.toLowerCase();
+            
+            // Known safe compounds
+            if (compoundName.includes('chavicol') || compoundName.includes('eugenol') || 
+                compoundName.includes('linalool')) {
+                return 'Non-mutagenic';
+            }
+            
+            // For other compounds, base on general molecular characteristics
+            // Most natural phenolic compounds have low mutagenicity risk
+            if (compoundName.includes('acid') || compoundName.includes('phenol')) {
+                return 'Non-mutagenic';
+            }
+            
+            // General assessment for unknown compounds
+            return 'Low Risk';
+        }
+
+        function getOverallSafety(bioactivityScore, compound, qsarData) {
+            const risk = getToxicityRisk(bioactivityScore, compound, qsarData);
+            const drugScore = parseFloat(calculateDrugLikenessScore(bioactivityScore, compound, qsarData));
+            
+            // Combined safety assessment
+            if (risk === 'Low' && drugScore >= 3.0) return 'Generally Safe';
+            if (risk === 'Low' || drugScore >= 2.0) return 'Moderate Safety';
+            return 'Requires Caution';
+        }
+
+        // Default functions
+        function getDefaultMolWt(compoundName) {
+            const name = compoundName.toLowerCase();
+            if (name.includes('acid')) return 150.0;
+            if (name.includes('chavicol')) return 134.18;
+            if (name.includes('eugenol')) return 164.20;
+            return 200.0; // Default
+        }
+
+        function getDefaultLogP(compoundName) {
+            const name = compoundName.toLowerCase();
+            if (name.includes('acid')) return 1.5;
+            if (name.includes('chavicol')) return 2.5;
+            if (name.includes('eugenol')) return 2.9;
+            return 2.0; // Default
+        }
+
+        function getDefaultTPSA(compoundName) {
+            const name = compoundName.toLowerCase();
+            if (name.includes('acid')) return 80.0;
+            return 100.0; // Default
+        }
+
+        function getDefaultRotBonds(compoundName) {
+            return 2; // Default
+        }
+
+        function getDefaultAromatic(compoundName) {
+            return 1; // Default
+        }
+
+        // Test different compounds
+        const testCompounds = [
+            {
+                name: 'Gallic acid',
+                descriptors: { MolWt: 170.12, LogP: 0.502, TPSA: 97.99, NumRotatableBonds: 1, NumAromaticRings: 1 }
+            },
+            {
+                name: 'Quercetin',
+                descriptors: { MolWt: 302.238, LogP: 1.988, TPSA: 131.36, NumRotatableBonds: 1, NumAromaticRings: 3 }
+            },
+            {
+                name: 'Large compound',
+                descriptors: { MolWt: 650.5, LogP: 6.2, TPSA: 180.0, NumRotatableBonds: 8, NumAromaticRings: 4 }
+            },
+            {
+                name: 'Unknown compound',
+                descriptors: { MolWt: 250.0, LogP: 3.5, TPSA: 120.0, NumRotatableBonds: 3, NumAromaticRings: 2 }
+            }
+        ];
+
+        let results = '<h3>Frontend Dynamic Value Test Results:</h3>';
+        
+        testCompounds.forEach(compound => {
+            const bioavailability = calculateOralBioavailability(5.0, compound, { descriptors: compound.descriptors });
+            const drugLikeness = calculateDrugLikenessScore(5.0, compound, { descriptors: compound.descriptors });
+            const toxicity = getToxicityRisk(5.0, compound, { descriptors: compound.descriptors });
+            const mutagenicity = getMutagenicity(compound);
+            const safety = getOverallSafety(5.0, compound, { descriptors: compound.descriptors });
+            
+            results += `
+                <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+                    <h4>${compound.name}</h4>
+                    <p>MW: ${compound.descriptors.MolWt}, LogP: ${compound.descriptors.LogP}, TPSA: ${compound.descriptors.TPSA}</p>
+                    <p><strong>Oral Bioavailability:</strong> ${bioavailability}%</p>
+                    <p><strong>Drug-likeness Score:</strong> ${drugLikeness}/5.0</p>
+                    <p><strong>Toxicity Risk:</strong> ${toxicity} Risk</p>
+                    <p><strong>Mutagenicity:</strong> ${mutagenicity}</p>
+                    <p><strong>Overall Safety:</strong> ${safety}</p>
+                </div>
+            `;
+        });
+        
+        document.getElementById('results').innerHTML = results;
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!-- Drug Assessment Section -->
+<div class="drug-assessment-section" id="drugSection" style="display: none;">
+    <div class="drug-assessment-header">
+        <h4>💊 Drug Likeness & Toxicity Assessment</h4>
+        <p style="opacity: 0.9; margin-top: 10px;">AI-powered drug development assessment based on molecular properties</p>
+    </div>
+    
+    <!-- Drug Likeness Analysis -->
+    <div class="drug-likeness-container">
+        <h5>🎯 Drug Likeness Analysis</h5>
+        <div class="drug-likeness-grid" id="drugLikenessGrid">
+            <p style="text-align: center; color: #666; padding: 30px;">Select compounds from QSAR analysis to view drug assessment.</p>
+        </div>
+    </div>
+    
+    <!-- Toxicity Assessment -->
+    <div class="toxicity-assessment">
+        <h5>⚠️ Toxicity Assessment</h5>
+        <div class="toxicity-grid" id="toxicityGrid">
+            <p style="text-align: center; color: #666; padding: 30px;">Toxicity data will appear after drug likeness analysis.</p>
+        </div>
+    </div>
+    
+    <!-- AI Drug Development Assessment -->
+    <div class="ai-drug-assessment" id="aiDrugAssessment" style="display: none;">
+        <h5>🤖 AI Drug Development Assessment</h5>
+        <div class="ai-assessment-content" id="aiAssessmentContent">
+            <div class="assessment-loading" style="text-align: center; padding: 30px;">
+                <div class="spinner" style="margin: 0 auto 15px;"></div>
+                <p>Generating AI-powered drug development assessment...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Summary Report -->
+    <div class="drug-summary-report" id="drugSummaryReport" style="display: none;">
+        <h5>📋 Summary Report</h5>
+        <div class="summary-content" id="summaryContent"></div>
+        
+        <!-- Export Options -->
+        <div class="export-options" style="text-align: center; margin-top: 20px;">
+            <button class="export-btn" onclick="exportReport('pdf')">📄 Export as PDF</button>
+            <button class="export-btn" onclick="exportReport('csv')">📊 Export Data as CSV</button>
+        </div>
+    </div>
+</div>

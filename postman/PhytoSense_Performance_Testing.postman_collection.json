@@ -1,0 +1,415 @@
+{
+  "info": {
+    "name": "PhytoSense Performance Testing",
+    "description": "Comprehensive performance testing suite for PhytoSense application including response times, throughput, and load testing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:5000",
+      "type": "string"
+    },
+    {
+      "key": "test_smiles",
+      "value": "C1=CC(=C(C=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O)O",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Performance Tests",
+      "item": [
+        {
+          "name": "P1 - Homepage Response Time",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "pm.globals.set('test_start_time', new Date().getTime());"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Calculate response time",
+                  "const startTime = pm.globals.get('test_start_time');",
+                  "const endTime = new Date().getTime();",
+                  "const responseTime = endTime - startTime;",
+                  "",
+                  "// Performance assertions",
+                  "pm.test('Homepage loads successfully', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response time is acceptable (<1000ms)', function () {",
+                  "    pm.expect(responseTime).to.be.below(1000);",
+                  "});",
+                  "",
+                  "pm.test('Content-Type is HTML', function () {",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.include('text/html');",
+                  "});",
+                  "",
+                  "// Log performance metrics",
+                  "console.log(`Homepage Response Time: ${responseTime}ms`);",
+                  "pm.globals.set('homepage_response_time', responseTime);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": ["{{base_url}}"],
+              "path": [""]
+            }
+          }
+        },
+        {
+          "name": "P2 - QSAR Prediction Performance",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "pm.globals.set('qsar_start_time', new Date().getTime());"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Calculate response time",
+                  "const startTime = pm.globals.get('qsar_start_time');",
+                  "const endTime = new Date().getTime();",
+                  "const responseTime = endTime - startTime;",
+                  "",
+                  "// Performance assertions",
+                  "pm.test('QSAR prediction executes successfully', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('QSAR response time is acceptable (<10000ms)', function () {",
+                  "    pm.expect(responseTime).to.be.below(10000);",
+                  "});",
+                  "",
+                  "pm.test('Response contains prediction data', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('success', true);",
+                  "    pm.expect(jsonData).to.have.property('prediction');",
+                  "    pm.expect(jsonData).to.have.property('descriptors');",
+                  "});",
+                  "",
+                  "// Log performance metrics",
+                  "console.log(`QSAR Prediction Response Time: ${responseTime}ms`);",
+                  "pm.globals.set('qsar_response_time', responseTime);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"smiles\": \"{{test_smiles}}\",\n  \"compound_name\": \"Quercetin\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/predict_qsar",
+              "host": ["{{base_url}}"],
+              "path": ["predict_qsar"]
+            }
+          }
+        },
+        {
+          "name": "P3 - Molecular Descriptor Calculation Performance",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "pm.globals.set('descriptor_start_time', new Date().getTime());"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Calculate response time",
+                  "const startTime = pm.globals.get('descriptor_start_time');",
+                  "const endTime = new Date().getTime();",
+                  "const responseTime = endTime - startTime;",
+                  "",
+                  "// Performance assertions",
+                  "pm.test('Descriptor calculation executes successfully', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Descriptor response time is acceptable (<5000ms)', function () {",
+                  "    pm.expect(responseTime).to.be.below(5000);",
+                  "});",
+                  "",
+                  "pm.test('Response contains molecular descriptors', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('success', true);",
+                  "    pm.expect(jsonData).to.have.property('descriptors');",
+                  "});",
+                  "",
+                  "// Log performance metrics",
+                  "console.log(`Descriptor Calculation Response Time: ${responseTime}ms`);",
+                  "pm.globals.set('descriptor_response_time', responseTime);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"smiles\": \"{{test_smiles}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/calculate_descriptors",
+              "host": ["{{base_url}}"],
+              "path": ["calculate_descriptors"]
+            }
+          }
+        },
+        {
+          "name": "P4 - 3D Molecular Visualization Performance",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "pm.globals.set('visualization_start_time', new Date().getTime());"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Calculate response time",
+                  "const startTime = pm.globals.get('visualization_start_time');",
+                  "const endTime = new Date().getTime();",
+                  "const responseTime = endTime - startTime;",
+                  "",
+                  "// Performance assertions",
+                  "pm.test('3D visualization generates successfully', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('3D visualization response time is acceptable (<15000ms)', function () {",
+                  "    pm.expect(responseTime).to.be.below(15000);",
+                  "});",
+                  "",
+                  "pm.test('Response contains 3D molecular data', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('success', true);",
+                  "    pm.expect(jsonData).to.have.property('mol_block_3d');",
+                  "});",
+                  "",
+                  "// Log performance metrics",
+                  "console.log(`3D Visualization Response Time: ${responseTime}ms`);",
+                  "pm.globals.set('visualization_response_time', responseTime);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"smiles\": \"{{test_smiles}}\",\n  \"compound_name\": \"Quercetin\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/convert_smiles_to_3d",
+              "host": ["{{base_url}}"],
+              "path": ["api", "convert_smiles_to_3d"]
+            }
+          }
+        },
+        {
+          "name": "P5 - Load Test (Multiple Concurrent Requests)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "pm.globals.set('load_test_start_time', new Date().getTime());"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Calculate response time",
+                  "const startTime = pm.globals.get('load_test_start_time');",
+                  "const endTime = new Date().getTime();",
+                  "const responseTime = endTime - startTime;",
+                  "",
+                  "// Load test assertions",
+                  "pm.test('Server handles load successfully', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Load response time is acceptable (<2000ms)', function () {",
+                  "    pm.expect(responseTime).to.be.below(2000);",
+                  "});",
+                  "",
+                  "pm.test('Server maintains stability under load', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('success', true);",
+                  "});",
+                  "",
+                  "// Log load test metrics",
+                  "console.log(`Load Test Response Time: ${responseTime}ms`);",
+                  "pm.globals.set('load_test_response_time', responseTime);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"smiles\": \"{{test_smiles}}\",\n  \"compound_name\": \"LoadTest\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/predict_qsar",
+              "host": ["{{base_url}}"],
+              "path": ["predict_qsar"]
+            }
+          }
+        },
+        {
+          "name": "P6 - Performance Summary Report",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Collect all performance metrics",
+                  "const homepageTime = pm.globals.get('homepage_response_time') || 0;",
+                  "const qsarTime = pm.globals.get('qsar_response_time') || 0;",
+                  "const descriptorTime = pm.globals.get('descriptor_response_time') || 0;",
+                  "const visualizationTime = pm.globals.get('visualization_response_time') || 0;",
+                  "const loadTestTime = pm.globals.get('load_test_response_time') || 0;",
+                  "",
+                  "// Calculate performance scores",
+                  "const homepageScore = homepageTime < 500 ? 'Excellent' : homepageTime < 1000 ? 'Good' : 'Needs Improvement';",
+                  "const qsarScore = qsarTime < 2000 ? 'Excellent' : qsarTime < 5000 ? 'Good' : 'Needs Improvement';",
+                  "const overallAvg = (homepageTime + qsarTime + descriptorTime + visualizationTime + loadTestTime) / 5;",
+                  "",
+                  "// Generate performance report",
+                  "console.log('=== PERFORMANCE TEST SUMMARY ===');",
+                  "console.log(`Homepage Response Time: ${homepageTime}ms - ${homepageScore}`);",
+                  "console.log(`QSAR Prediction Time: ${qsarTime}ms - ${qsarScore}`);",
+                  "console.log(`Descriptor Calculation: ${descriptorTime}ms`);",
+                  "console.log(`3D Visualization: ${visualizationTime}ms`);",
+                  "console.log(`Load Test Response: ${loadTestTime}ms`);",
+                  "console.log(`Overall Average: ${overallAvg.toFixed(2)}ms`);",
+                  "console.log('==============================');",
+                  "",
+                  "// Performance validation",
+                  "pm.test('Overall performance is acceptable', function () {",
+                  "    pm.expect(overallAvg).to.be.below(5000);",
+                  "});",
+                  "",
+                  "pm.test('No critical performance issues', function () {",
+                  "    pm.expect(homepageTime).to.be.below(2000);",
+                  "    pm.expect(qsarTime).to.be.below(15000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/debug",
+              "host": ["{{base_url}}"],
+              "path": ["debug"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Global setup for performance testing",
+          "pm.globals.set('test_suite_start', new Date().getTime());",
+          "console.log('Starting PhytoSense Performance Testing Suite...');"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Global teardown and reporting",
+          "const suiteStart = pm.globals.get('test_suite_start');",
+          "if (suiteStart) {",
+          "    const totalTime = new Date().getTime() - suiteStart;",
+          "    console.log(`Performance Test Suite Total Time: ${totalTime}ms`);",
+          "}"
+        ]
+      }
+    }
+  ]
+}

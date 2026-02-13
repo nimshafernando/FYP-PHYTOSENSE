@@ -1,0 +1,69 @@
+<!-- 3D Molecular Visualization Section -->
+<div class="molecular-interaction-section" id="molecularSection" style="display: none;">
+    <div class="molecular-interaction-header">
+        <h4>🧬 3D Molecular Interaction Viewer</h4>
+        <p style="opacity: 0.9; margin-top: 10px;">Explore protein-ligand interactions with enhanced molecular docking visualization</p>
+    </div>
+    
+    <div class="interaction-viewer-container">
+        <!-- Docking Viewer -->
+        <div class="docking-viewer-container">
+            <div class="docking-viewer">
+                <h5>⚛️ Molecular Docking Viewer</h5>
+                <div class="viewer-3d-docking" id="dockingViewer">
+                    <div class="docking-animation-loading" id="dockingLoading">
+                        <div class="loading-text-docking">🔄 Initializing 3D Molecular Docking...</div>
+                        <div class="docking-spinner"></div>
+                    </div>
+                </div>
+                
+                <!-- Docking Controls -->
+                <div class="viewer-controls">
+                    <h6 style="color: white; margin-bottom: 8px; font-size: 14px; text-align: center;">Visualization Controls</h6>
+                    
+                    <div class="control-group">
+                        <button class="control-btn-small" onclick="toggleProteinLayer()">Protein Structure Layer</button>
+                        <button class="control-btn-small" onclick="toggleLigandLayer()">Ligand Structure Layer</button>
+                        <button class="control-btn-small" onclick="toggleMolecularSurface()">Molecular Surface Layer</button>
+                    </div>
+                    
+                    <div class="control-group">
+                        <button class="control-btn-small" onclick="toggleBackboneView()">Backbone Representation Layer</button>
+                        <button class="control-btn-small" onclick="toggleSurfaceView()">Surface Representation Layer</button>
+                        <button class="control-btn-small" onclick="toggleAutoRotation()">Auto Spin</button>
+                    </div>
+                    
+                    <div class="control-group">
+                        <button class="control-btn-small" onclick="toggleChemicalBonds()">Chemical Bond Layer</button>
+                        <button class="control-btn-small" onclick="resetDockingView()">Reset View</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Interaction Details Panel -->
+        <div class="interaction-details" id="interactionDetails">
+            <h5 style="color: white; margin-bottom: 15px;">🔬 Interaction Analysis</h5>
+            <div class="interaction-info" id="interactionInfo">
+                <p style="color: rgba(255,255,255,0.8); text-align: center; padding: 20px;">
+                    Select a compound from the phytochemical section to view detailed protein-ligand interactions.
+                </p>
+            </div>
+            
+            <!-- Binding Affinity Display -->
+            <div class="binding-affinity" id="bindingAffinity" style="display: none;">
+                <h6 style="color: white; margin-bottom: 10px;">🎯 Predicted Binding Affinity</h6>
+                <div class="affinity-value" id="affinityValue">-8.2 kcal/mol</div>
+                <p style="font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 5px;">
+                    Lower values indicate stronger binding
+                </p>
+            </div>
+            
+            <!-- Key Interactions -->
+            <div class="key-interactions" id="keyInteractions" style="display: none;">
+                <h6 style="color: white; margin-bottom: 10px;">🔗 Key Molecular Interactions</h6>
+                <div class="interactions-list" id="interactionsList"></div>
+            </div>
+        </div>
+    </div>
+</div>

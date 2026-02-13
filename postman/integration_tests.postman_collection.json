@@ -1,0 +1,470 @@
+{
+  "info": {
+    "name": "Medicinal Leaf Classifier API Integration Tests",
+    "description": "Complete integration testing for PhytoSense medicinal leaf classifier APIs",
+    "version": "1.0.0"
+  },
+  "item": [
+    {
+      "name": "01 - Health Check",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Homepage loads successfully', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains HTML content', function () {",
+              "    pm.expect(pm.response.text()).to.include('html');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": ["{{base_url}}"],
+          "path": [""]
+        }
+      }
+    },
+    {
+      "name": "02 - Application Status Check",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Application is running and responsive', function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 404, 500]);",
+              "});",
+              "pm.test('Server responds within acceptable time', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/debug",
+          "host": ["{{base_url}}"],
+          "path": ["debug"]
+        }
+      }
+    },
+    {
+      "name": "03 - QSAR Property Prediction",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('QSAR prediction successful', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('QSAR response contains predictions', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('prediction');",
+              "    pm.expect(response).to.have.property('targets');",
+              "    pm.expect(response).to.have.property('interpretations');",
+              "});",
+              "pm.test('Prediction values are numeric', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.prediction).to.be.an('array');",
+              "    pm.expect(response.prediction[0]).to.be.a('number');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"smiles\": \"C1=CC(=C(C=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O)O\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/predict_qsar",
+          "host": ["{{base_url}}"],
+          "path": ["predict_qsar"]
+        }
+      }
+    },
+    {
+      "name": "04 - QSAR Prediction",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('QSAR prediction successful', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('QSAR response contains predictions', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('prediction');",
+              "    pm.expect(response).to.have.property('targets');",
+              "    pm.expect(response).to.have.property('interpretations');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"smiles\": \"C1=CC(=C(C=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O)O\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/predict_qsar",
+          "host": ["{{base_url}}"],
+          "path": ["predict_qsar"]
+        }
+      }
+    },
+    {
+      "name": "04 - Calculate Molecular Descriptors",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Descriptors calculated successfully', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains molecular descriptors', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('descriptors');",
+              "    pm.expect(response.descriptors).to.have.property('MolWt');",
+              "    pm.expect(response.descriptors).to.have.property('LogP');",
+              "});",
+              "pm.test('Molecular weight is reasonable', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.descriptors.MolWt).to.be.above(100);",
+              "    pm.expect(response.descriptors.MolWt).to.be.below(1000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"smiles\": \"C1=CC(=C(C=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O)O\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/calculate_descriptors",
+          "host": ["{{base_url}}"],
+          "path": ["calculate_descriptors"]
+        }
+      }
+    },
+    {
+      "name": "05 - AutoDock Vina Simulation",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Vina simulation completes successfully', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains docking results', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('success');",
+              "    pm.expect(response).to.have.property('poses');",
+              "    pm.expect(response).to.have.property('compound_name');",
+              "});",
+              "pm.test('Binding poses are generated', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.poses).to.be.an('array');",
+              "    if (response.poses.length > 0) {",
+              "        pm.expect(response.poses[0]).to.have.property('binding_affinity');",
+              "    }",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"compound_name\": \"Quercetin\",\n    \"smiles\": \"C1=CC(=C(C=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O)O\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/autodock_vina",
+          "host": ["{{base_url}}"],
+          "path": ["api", "autodock_vina"]
+        }
+      }
+    },
+    {
+      "name": "06 - Convert SMILES to 3D Structure",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('3D conversion successful', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains 3D structure data', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('success', true);",
+              "    pm.expect(response).to.have.property('mol_block_3d');",
+              "    pm.expect(response).to.have.property('compound_name');",
+              "});",
+              "pm.test('3D molecular block is not empty', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.mol_block_3d).to.be.a('string');",
+              "    pm.expect(response.mol_block_3d.length).to.be.above(50);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"compound_name\": \"Quercetin\",\n    \"smiles\": \"C1=CC(=C(C=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O)O\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/convert_smiles_to_3d",
+          "host": ["{{base_url}}"],
+          "path": ["api", "convert_smiles_to_3d"]
+        }
+      }
+    },
+    {
+      "name": "07 - IC50 Calibration Test - Quercetin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('QSAR with calibration works', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response structure is valid', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('prediction');",
+              "    pm.expect(response).to.have.property('interpretations');",
+              "});",
+              "pm.test('Bioactivity prediction is numeric', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.prediction[0]).to.be.a('number');",
+              "    pm.expect(response.prediction[0]).to.be.above(0);",
+              "});",
+              "console.log('IC50 Calibration Test - Quercetin results logged');"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"smiles\": \"C1=CC(=C(C=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O)O\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/predict_qsar",
+          "host": ["{{base_url}}"],
+          "path": ["predict_qsar"]
+        }
+      }
+    },
+    {
+      "name": "08 - IC50 Calibration Test - Luteolin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Luteolin QSAR prediction successful', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains valid prediction data', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('prediction');",
+              "    pm.expect(response).to.have.property('targets');",
+              "});",
+              "pm.test('Prediction values are within expected range', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.prediction[0]).to.be.above(0);",
+              "    pm.expect(response.prediction[0]).to.be.below(20);",
+              "});",
+              "console.log('IC50 Calibration Test - Luteolin completed successfully');"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"smiles\": \"C1=CC(=C(C=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O)O\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/predict_qsar",
+          "host": ["{{base_url}}"],
+          "path": ["predict_qsar"]
+        }
+      }
+    },
+    {
+      "name": "09 - Error Handling - Invalid SMILES",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Handles invalid SMILES gracefully', function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([400, 500]);",
+              "});",
+              "pm.test('Error response is properly formatted', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('error');",
+              "});",
+              "pm.test('Error message is descriptive', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.error).to.be.a('string');",
+              "    pm.expect(response.error.length).to.be.above(5);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"smiles\": \"INVALID_SMILES_STRING_12345\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/predict_qsar",
+          "host": ["{{base_url}}"],
+          "path": ["predict_qsar"]
+        }
+      }
+    },
+    {
+      "name": "10 - Complete Workflow Integration Test",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Complete workflow integration successful', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('All required components present', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('prediction');",
+              "    pm.expect(response).to.have.property('targets');",
+              "    pm.expect(response).to.have.property('descriptors');",
+              "});",
+              "pm.test('Workflow completes within acceptable time', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+              "});",
+              "console.log('Complete workflow integration test completed successfully');"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"smiles\": \"C1=CC(=C(C=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O)O\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/predict_qsar",
+          "host": ["{{base_url}}"],
+          "path": ["predict_qsar"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000"
+    }
+  ]
+}
