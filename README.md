@@ -29,7 +29,6 @@
 - **🤖 Multi-Modal AI**: Combines image classification with molecular property prediction
 - **🧬 QSAR Modeling**: Advanced XGBoost-based prediction of bioactivity, drug-likeness, and toxicity
 - **🎯 Cancer-Focused**: Specialized for oral cancer drug discovery with EGFR inhibition analysis
-- **📊 Literature-Validated**: IC50 calibration using experimental literature data
 - **🔬 Molecular Visualization**: Interactive 3D molecular structures and docking simulations
 - **⚡ Real-Time Analysis**: Instant predictions with comprehensive drug development assessments
 
@@ -48,7 +47,6 @@
 ### 🎯 **QSAR Modeling**
 - **XGBoost Regression**: State-of-the-art gradient boosting for property prediction
 - **Multi-Target Prediction**: Simultaneous prediction of multiple molecular properties
-- **Literature Calibration**: IC50 values calibrated against experimental data
 - **Feature Importance**: Interpretable model with feature ranking
 
 ### 🔬 **Molecular Visualization**
@@ -182,7 +180,6 @@ FYP-PHYTOSENSE/
 ├── 🎯 flask_app.py                 # Main Flask application
 ├── 📊 api/                         # QSAR & API integrations
 │   ├── qsar_validator.py           #   External QSAR validation
-│   ├── reference_ic50_data.py      #   Literature IC50 calibration
 │   └── autodock_vina_integration.py#   Molecular docking
 ├── 🧪 tests/                       # Comprehensive testing suite
 │   ├── functional_tests.py         #   API & integration tests
@@ -258,7 +255,6 @@ FYP-PHYTOSENSE/
 
 ### 4️⃣ **QSAR Analysis**
 - XGBoost model predicts bioactivity, drug-likeness, toxicity
-- IC50 values calibrated against literature data
 - Feature importance analysis for interpretability
 
 ### 5️⃣ **Molecular Modeling**
